@@ -1,0 +1,231 @@
+{
+  "name": "ai automation form project",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "a29eb412-06d7-46da-9764-0fd92dbb67d8",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        -48
+      ],
+      "id": "276a910f-e828-4bdb-84a8-818311a4c0d9",
+      "name": "Webhook",
+      "webhookId": "a29eb412-06d7-46da-9764-0fd92dbb67d8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b705651d-407b-40cf-8199-147fa57a0701",
+              "name": "body.fullName",
+              "value": "={{ $json.body.fullName }}",
+              "type": "string"
+            },
+            {
+              "id": "9a570cbd-781f-4900-83cd-444a6932f55d",
+              "name": "body.email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "247d9e7b-6eef-4c5b-81a3-fc2beb47bfca",
+              "name": "body.phone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "d9166bf8-dec6-49e0-a834-51daf06ca15c",
+              "name": "body.learnings",
+              "value": "={{ $json.body.learnings }}",
+              "type": "string"
+            },
+            {
+              "id": "4d655d8a-ca20-4b34-9905-40af1e91ec4e",
+              "name": "body.timestamp",
+              "value": "={{ $json.body.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -48
+      ],
+      "id": "204cf788-55cd-47c1-a14b-dfcee56ca7ec",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Dk9tFSir947B-xqjeUOQLH0tI4_Kg2WwAFwD2CgJ3iQ",
+          "mode": "list",
+          "cachedResultName": "BOOTCAMP ATTENDANCE",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Dk9tFSir947B-xqjeUOQLH0tI4_Kg2WwAFwD2CgJ3iQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.fullName }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone Number": "={{ $json.body.phone }}",
+            "Learnings": "={{ $json.body.learnings }}",
+            "Date Of Submission": "={{ $json.body.timestamp }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Learnings",
+              "displayName": "Learnings",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date Of Submission",
+              "displayName": "Date Of Submission",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        128,
+        -48
+      ],
+      "id": "c048a099-f686-4cc0-b47e-4d8682ae863e",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "N3eG5G5NEdD2xogW",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "ATTENDANCE RECEIVED",
+        "emailType": "text",
+        "message": "=Hello {{ $json.Name }},\n\nThank you for attending day2 of the bootcamp. Your attendance has been recieved.\n\nYours Sincerely,\nCEO",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        336,
+        -48
+      ],
+      "id": "ea9c7fdd-47be-4b77-9b8b-622a3be431d6",
+      "name": "Send a message",
+      "webhookId": "20246b31-317c-40f8-8c5f-a085c5bc63c3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dm0lyCsrlo1lW8H3",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b32f215c-75f7-44b8-b7c6-6598bf04ba87",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "12aefa4c215830cc950715a61d0c91026c398ba481371572afb6f28ed8c54a85"
+  },
+  "id": "FZPcYixMFoHjGuaX",
+  "tags": []
+}
