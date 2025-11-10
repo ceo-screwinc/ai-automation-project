@@ -1,0 +1,76 @@
+{
+  "name": "whatsapp hourly reminder",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f38eddfd-863b-42f2-a573-3d95919de442",
+      "name": "Schedule Trigger",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "notesInFlow": true,
+      "notes": "Hourly Whatsapp reminder - Twilio sandbox "
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "+447366893199",
+        "toWhatsapp": true,
+        "message": "Hi CEO. Reminder: Drink Water",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "5e09a92b-5181-42c4-81fd-16ebf26fe7c7",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "wjxckRmd2kf8aWbR",
+          "name": "Twilio account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e23753e5-908e-459b-99c2-1c5c87fe4987",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "12aefa4c215830cc950715a61d0c91026c398ba481371572afb6f28ed8c54a85"
+  },
+  "id": "eviBDyxdCzVLXiby",
+  "tags": []
+}
